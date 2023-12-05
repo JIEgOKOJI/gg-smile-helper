@@ -1,11 +1,36 @@
 .search-smile {
     margin-bottom: 15px;
 }
-
-.search-smile-list-active .smile-list > div {
+.menu-tab {
+    overflow-x: scroll;
+    white-space: nowrap;
+    top: 8%;
+    left: 0;
+}
+.menu-tab::-webkit-scrollbar-track{
+    -webkit-box-shadow: inset 0 0 3px rgba(0,0,0,0.3);
+    height: 5px;
+    background-color: #4772c9;
+  }
+  .menu-tab::-webkit-scrollbar{
+    height: 5px;
+    width: 2px;
+    background-color: #0c8caf;
+  }
+  .menu-tab::-webkit-scrollbar-thumb{
+    height: 4px;
+    background-color: #2443a2c3;
+    border: 0px solid #555555;
+  }
+/*.search-smile-list-active .smile-list > div {
     display: inline !important;
     padding-right: 0 !important;
 }
+.search-smile-list-active .menu-tab > div {
+    display: inline !important;
+    padding-right: 0 !important;
+    overflow-x: scroll;
+}*/
 
 .search-smile-list-active .smile-list .smile-block.hide,
 .search-smile-list-active .smile-list .favorite-smiles,
@@ -14,5 +39,6 @@
 }
 
 .search-smile-list-active .smiles-list-block {
+    top: 10%;
     padding-right: 0 !important;
 }
