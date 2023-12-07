@@ -261,6 +261,11 @@ function GoodGameSmileSearchProccesing(mainContainer) {
     //создание таб меню для паков
     const tab = document.createElement('div');
     tab.className = 'menu-tab';
+    tab.addEventListener("wheel", function (e) {
+        e.preventDefault();
+        if (e.deltaY > 0) tab.scrollLeft += 100;
+        else tab.scrollLeft -= 100;
+      });
     smileListFirst.prepend(tab);
 
 
@@ -290,20 +295,29 @@ function GoodGameSmileSearchProccesing(mainContainer) {
     });
     // создание кнопок выбора паков и ивентов для них
     for (let [key, value] of smilesTags) {
+        let buttonContainer = document.createElement('div')
         let img = document.createElement('img');
+        buttonContainer.className = 'button-Container'
         if (key.includes('https')){
             img.src = key;
+            buttonContainer.appendChild(img);
         }else{
-            img.src ='https://static.goodgame.ru/images/smiles/'+key+'.png';
+            if (key == 'fav' || key == 'all'){
+
+            }else{
+                img.src ='https://static.goodgame.ru/images/smiles/'+key+'.png';
+                buttonContainer.appendChild(img);
+            }
+            
         }
         const button = document.createElement("button");
         button.id = key;
         button.className = 'btn btn-blue'
-        button.appendChild(img);
+        button.appendChild(buttonContainer);
         tab.appendChild(button);
         if (key == "all"){
-          img.src = "";
-          img.className = 'icon icon-smilemenu-icon'
+          buttonContainer.classList.add('icon');
+          buttonContainer.classList.add('icon-smilemenu-icon');
           const cssListActive = "search-smile-list-active";
 
           button.addEventListener('click', function(){
@@ -313,8 +327,8 @@ function GoodGameSmileSearchProccesing(mainContainer) {
           continue;  
         }
         if (key == "fav"){
-            img.src = "";
-            img.className = 'icon icon-star';
+            buttonContainer.classList.add('icon');
+            buttonContainer.classList.add('icon-star');
         }
         button.addEventListener('click', function(){
             if (key == 'fav'){

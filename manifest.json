@@ -1,17 +1,20 @@
 {
   "name": "Поиск по смайлам GG",
   "description": "Добавляет поиск по смайлам в чат GoodGame.",
+  "browser_specific_settings": {
+  "gecko": {
+    "id": "smileshelper@goodgame.ru"
+  }
+},
   "icons": {
     "96": "resources/images/icons/icon_96.png",
     "32": "resources/images/icons/icon_32.png",
     "16": "resources/images/icons/icon_16.png"
   },
-  "version": "1.4.1",
+  "version": "1.4.3",
   "manifest_version": 3,
   "action": {},
   "permissions": [
-    "scripting",
-    "activeTab"
   ],
   "content_scripts": [
     {

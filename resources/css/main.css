@@ -1,24 +1,32 @@
 .search-smile {
     margin-bottom: 15px;
 }
+.button-Container{
+    overflow: none;
+    height: 21px;
+    width: 22px;
+}
 .menu-tab {
     overflow-x: scroll;
     white-space: nowrap;
+    scrollbar-color: #0A4C95 #4772c9;
+    scrollbar-width: 5px;
     top: 8%;
+    height: 100%;
     left: 0;
 }
 .menu-tab::-webkit-scrollbar-track{
     -webkit-box-shadow: inset 0 0 3px rgba(0,0,0,0.3);
-    height: 5px;
+    height: 10px;
     background-color: #4772c9;
   }
   .menu-tab::-webkit-scrollbar{
-    height: 5px;
-    width: 2px;
+    height: 10px;
+    width: 5px;
     background-color: #0c8caf;
   }
   .menu-tab::-webkit-scrollbar-thumb{
-    height: 4px;
+    height: 8px;
     background-color: #2443a2c3;
     border: 0px solid #555555;
   }
