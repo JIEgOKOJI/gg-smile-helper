@@ -11,7 +11,7 @@
     "32": "resources/images/icons/icon_32.png",
     "16": "resources/images/icons/icon_16.png"
   },
-  "version": "1.4.3",
+  "version": "1.6.0",
   "manifest_version": 3,
   "action": {},
   "permissions": [
@@ -30,7 +30,8 @@
         "https://goodgame.ru/*",
         "http://localhost/*"
       ],
-      "run_at": "document_end"
+      "run_at": "document_end",
+      "world": "MAIN"
     }
   ]
 }
