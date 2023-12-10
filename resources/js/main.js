@@ -1809,10 +1809,13 @@ class GGSmileHelper extends HTMLElement {
 				e.parentElement.classList.toggle("hide", false);
 			else e.parentElement.classList.toggle("hide", true);
 		});
-		this.querySelectorAll(".smile-list").forEach((e) => {
-			e.classList.toggle(
-				"hide",
-				e.querySelectorAll(".smile-block:not(.hide)").length === 0,
+		this.querySelectorAll(".smile-list").forEach((list) => {
+			Array.from(list.children).forEach((e) =>
+				e.classList.toggle(
+					"hide",
+					e.querySelectorAll(".smile-block:not(.hide)").length ===
+						0,
+				),
 			);
 		});
 	}
