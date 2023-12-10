@@ -1801,11 +1801,16 @@ class GGSmileHelper extends HTMLElement {
 		const elements = Array.from(
 			this.querySelectorAll(".smile-block .smile"),
 		);
-		let smiles = elements.map((e) => e.title);
+		let smiles = elements
+			.map((e) => e.title)
+			.filter((e, i, a) => i === a.indexOf(e));
+		const ogLength = smiles.length;
 		smiles = this.filterByCategory(smiles);
 		smiles = this.filterBySearch(smiles);
+		const wasFiltered = smiles.length !== ogLength;
 		elements.forEach((e) => {
-			if (smiles.includes(e.title))
+			if (!wasFiltered) e.parentElement.classList.remove("hide");
+			else if (smiles.includes(e.title))
 				e.parentElement.classList.toggle("hide", false);
 			else e.parentElement.classList.toggle("hide", true);
 		});
@@ -1813,8 +1818,10 @@ class GGSmileHelper extends HTMLElement {
 			Array.from(list.children).forEach((e) =>
 				e.classList.toggle(
 					"hide",
-					e.querySelectorAll(".smile-block:not(.hide)").length ===
-						0,
+					e.classList.contains("favorite-smiles")
+						? wasFiltered
+						: e.querySelectorAll(".smile-block:not(.hide)")
+								.length === 0,
 				),
 			);
 		});
