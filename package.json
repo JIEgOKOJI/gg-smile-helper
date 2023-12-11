@@ -1,7 +1,7 @@
 {
   "name": "gg-smile-helper",
   "version": "1.0.0",
-  "description": "",
+  "description": "addon for goodgame smile chat selector",
   "main": "resources/index.js",
   "scripts": {
     "build": "webpack --config webpack.config.js",
@@ -13,7 +13,7 @@
     "node": ">=20.0.0",
     "npm": ">=10.0.0"
   },
-  "author": "",
+  "author": "goodgame",
   "license": "ISC",
   "devDependencies": {
     "css-loader": "^6.8.1",
