@@ -18,5 +18,8 @@ module.exports = merge (commonConfig, {
         libraryTarget: 'umd',
         library: 'GG2SmilesExtension',
         umdNamedDefine: true,
+    },
+    optimization: {
+        minimize: true
     }
 })

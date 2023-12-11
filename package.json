@@ -9,6 +9,10 @@
     "build:element": "webpack --config webpack.element.config.js",
     "watch:element": "webpack --watch --config webpack.element.config.js"
   },
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0"
+  },
   "author": "",
   "license": "ISC",
   "devDependencies": {
