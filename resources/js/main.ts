@@ -185,7 +185,7 @@ class GGSmileHelper extends HTMLElement {
 	hookSmiles(): void {
 		const favourites = smilesCategories.get("fav");
 		const streamerSmiles =
-			window['Utils'].rootScope().chat.smiles.ChannelSmiles;
+			window.Utils.rootScope().chat.smiles.ChannelSmiles;
 
 		this.querySelectorAll(".smiles-list-block").forEach((e) => {
 			let name: string;
