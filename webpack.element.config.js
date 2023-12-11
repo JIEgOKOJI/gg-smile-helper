@@ -1,22 +1,16 @@
 const path = require('path');
+const { merge } = require('webpack-merge');
+const commonConfig = require('./webpack.config');
 
-module.exports = {
-    entry: ['./resources/js/styles.ts', './resources/js/main.ts', './resources/js/range_selection_save_restore.ts'],
+module.exports = merge (commonConfig, {
+    entry: ['./resources/js/styles.ts'],
     module: {
         rules: [
             {
-                test: /\.ts?$/,
-                use: 'ts-loader',
-                exclude: /node_modules/,
-            },
-            {
-                test: /\.css$/i,
-                use: ["style-loader", "css-loader"],
-            },
+                test: /\.css$/,
+                use: ['style-loader', 'css-loader'],
+            }
         ],
-    },
-    resolve: {
-        extensions: ['.ts'],
     },
     output: {
         filename: 'smiles-extension.js',
@@ -24,5 +18,5 @@ module.exports = {
         libraryTarget: 'umd',
         library: 'GG2SmilesExtension',
         umdNamedDefine: true,
-    },
-};
+    }
+})
