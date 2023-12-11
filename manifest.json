@@ -23,8 +23,7 @@
         "resources/css/main.css"
       ],
       "js": [
-        "resources/js/main.js",
-        "resources/js/range_selection_save_restore.js"
+        "resources/js/index.js"
       ],
       "matches": [
         "https://goodgame.ru/*",

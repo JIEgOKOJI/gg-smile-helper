@@ -7,7 +7,7 @@
  * Use "rangeSelectionSaveRestore" instead of "rangy"
  */
 
-var rangeSelectionSaveRestore = (function () {
+export var rangeSelectionSaveRestore = (function () {
     var markerTextChar = "\ufeff";
     var selectionHasExtend = (typeof window.getSelection().extend !== "undefined");
 

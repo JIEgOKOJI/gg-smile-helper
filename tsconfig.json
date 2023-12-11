@@ -12,12 +12,8 @@
     "target": "es5",
     "module": "amd",
     "lib": ["DOM", "ES2019"],
-    "outFile": "main.js",
-    "rootDir": "../",
+    "rootDir": ".",
     "esModuleInterop": true,
-  },
-  "scripts": {
-    "build": "tsc"
   },
   "exclude": [
     "node_modules",
