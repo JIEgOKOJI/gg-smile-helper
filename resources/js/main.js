@@ -1589,7 +1589,7 @@ class GGSmileHelper extends HTMLElement {
 			.querySelector(".active")
 			?.classList.remove("active");
 		this.tabsContainer
-			.querySelector(`[data-category=${v ?? "all"}]`)
+			.querySelector(`[data-category="${v ?? "all"}"]`)
 			?.classList.add("active");
 		this._category = v;
 		this.filter();
@@ -1690,32 +1690,51 @@ class GGSmileHelper extends HTMLElement {
 		}
 
 		this.tabsContainer.append(
-			...Array.from(smilesCategories.keys()).map((key, i, a) => {
-				const container = createElement("div", {
-					attributes: { "data-category": key },
-					className:
-						"gg-smile-helper_tab" +
-						(key === "all" ? " active" : ""),
-					onclick: () => {
-						this.category = key === "all" ? null : key;
-					},
-				});
-				if (key !== "all" && key !== "fav") {
-					container.append(
-						createElement("img", {
-							src: key.startsWith("https")
-								? key
-								: `https://static.goodgame.ru/images/smiles/${key}.png`,
-						}),
-					);
-				} else {
-					container.classList.add(
-						"icon",
-						key === "all" ? "icon-smilemenu-icon" : "icon-star",
-					);
-				}
-				return container;
-			}),
+			...Array.from(smilesCategories.keys())
+				.sort((a, b) => {
+					if (a === "all" && b === "fav") return 0;
+					else if (a === "fav" && b === "all") return 1;
+					else if (a === "all" || a === "fav") return -1;
+					else if (
+						a.startsWith("https") &&
+						b !== "all" &&
+						b !== "fav"
+					) {
+						if (b.startsWith("https")) return 0;
+						else return -1;
+					} else if (b.startsWith("https")) {
+						if (a.startsWith("https")) return 0;
+						else return 1;
+					} else return 0;
+				})
+				.map((key) => {
+					const container = createElement("div", {
+						attributes: { "data-category": key },
+						className:
+							"gg-smile-helper_tab" +
+							(key === "all" ? " active" : ""),
+						onclick: () => {
+							this.category = key === "all" ? null : key;
+						},
+					});
+					if (key !== "all" && key !== "fav") {
+						container.append(
+							createElement("img", {
+								src: key.startsWith("https")
+									? key
+									: `https://static.goodgame.ru/images/smiles/${key}.png`,
+							}),
+						);
+					} else {
+						container.classList.add(
+							"icon",
+							key === "all"
+								? "icon-smilemenu-icon"
+								: "icon-star",
+						);
+					}
+					return container;
+				}),
 		);
 
 		this.prepend(this.header);
@@ -1736,6 +1755,51 @@ class GGSmileHelper extends HTMLElement {
 
 	hookSmiles() {
 		const favourites = smilesCategories.get("fav");
+		const streamerSmiles =
+			window.Utils.rootScope().chat.smiles.ChannelSmiles;
+
+		this.querySelectorAll(".smile-list>div").forEach((e) => {
+			const name = e
+				.querySelector(".streamer-name")
+				.textContent.toLowerCase();
+			if (name === "любимые" || name === "общие") return;
+			const smiles = Array.from(
+				e.querySelectorAll(".smile-block>.smile"),
+			).map((s) => s.title);
+			const categoryKey = streamerSmiles.find(
+				(s) =>
+					s.channel.toLowerCase() === name &&
+					s.name.toLowerCase() ===
+						smiles[0].replace(/:/g, "").toLowerCase(),
+			).img;
+			smilesCategories.set(categoryKey, smiles);
+			smilesTags.set(name, smiles);
+			if (
+				this.tabsContainer.querySelector(
+					`[data-category="${categoryKey}"]`,
+				) === null
+			) {
+				const before = this.tabsContainer.querySelector(
+					"[data-category='fav']",
+				).nextElementSibling;
+				this.tabsContainer.insertBefore(
+					createElement(
+						"div",
+						{
+							attributes: { "data-category": categoryKey },
+							className: "gg-smile-helper_tab",
+							onclick: () => {
+								this.category = categoryKey;
+							},
+						},
+						createElement("img", {
+							src: categoryKey,
+						}),
+					),
+					before,
+				);
+			}
+		});
 
 		this.querySelectorAll(".smile-block").forEach((element) => {
 			element.append(
@@ -1782,7 +1846,7 @@ class GGSmileHelper extends HTMLElement {
 		if (this.searchText === "") return smiles;
 		const pass = [];
 		const tags = Array.from(smilesTags.keys()).filter((t) =>
-			t.includes(this.searchText),
+			t.toLowerCase().includes(this.searchText.toLowerCase()),
 		);
 		tags.forEach((t) => {
 			const taggedSmiles = smilesTags.get(t);
@@ -1791,7 +1855,10 @@ class GGSmileHelper extends HTMLElement {
 			});
 		});
 		smiles.forEach((s) => {
-			if (s.includes(this.searchText) && !pass.includes(s))
+			if (
+				s.toLowerCase().includes(this.searchText.toLowerCase()) &&
+				!pass.includes(s)
+			)
 				pass.push(s);
 		});
 		return pass;
@@ -1801,11 +1868,16 @@ class GGSmileHelper extends HTMLElement {
 		const elements = Array.from(
 			this.querySelectorAll(".smile-block .smile"),
 		);
-		let smiles = elements.map((e) => e.title);
+		let smiles = elements
+			.map((e) => e.title)
+			.filter((e, i, a) => i === a.indexOf(e));
+		const ogLength = smiles.length;
 		smiles = this.filterByCategory(smiles);
 		smiles = this.filterBySearch(smiles);
+		const wasFiltered = smiles.length !== ogLength;
 		elements.forEach((e) => {
-			if (smiles.includes(e.title))
+			if (!wasFiltered) e.parentElement.classList.remove("hide");
+			else if (smiles.includes(e.title))
 				e.parentElement.classList.toggle("hide", false);
 			else e.parentElement.classList.toggle("hide", true);
 		});
@@ -1813,8 +1885,10 @@ class GGSmileHelper extends HTMLElement {
 			Array.from(list.children).forEach((e) =>
 				e.classList.toggle(
 					"hide",
-					e.querySelectorAll(".smile-block:not(.hide)").length ===
-						0,
+					e.classList.contains("favorite-smiles")
+						? wasFiltered
+						: e.querySelectorAll(".smile-block:not(.hide)")
+								.length === 0,
 				),
 			);
 		});
