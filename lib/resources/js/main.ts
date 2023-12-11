@@ -1903,4 +1903,4 @@ class GGSmileHelper extends HTMLElement {
 		});
 	}
 }
-customElements.define("gg-smiles2", GGSmileHelper);
+export default customElements.define("gg-smiles2", GGSmileHelper);
