@@ -1,4 +1,5 @@
 .idea/
 dev/
 node_modules
-/*/index.js
+dist
+resources/js/index.js

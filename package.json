@@ -2,15 +2,18 @@
   "name": "gg-smile-helper",
   "version": "1.0.0",
   "description": "",
-  "main": "resources/main.js",
+  "main": "resources/index.js",
   "scripts": {
     "build": "webpack --config webpack.config.js",
     "watch": "webpack --watch --config webpack.config.js",
-    "build:element": "webpack --config webpack.element.config.js"
+    "build:element": "webpack --config webpack.element.config.js",
+    "watch:element": "webpack --watch --config webpack.element.config.js"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "css-loader": "^6.8.1",
+    "style-loader": "^3.3.3",
     "ts-loader": "^9.5.1",
     "typescript": "^5.3.3",
     "webpack": "^5.89.0",
