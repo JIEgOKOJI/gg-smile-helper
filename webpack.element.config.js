@@ -16,7 +16,7 @@ module.exports = merge (commonConfig, {
         filename: 'smiles-extension.js',
         path: path.resolve(__dirname, 'dist'),
         libraryTarget: 'umd',
-        library: 'GG2SmilesExtension',
+        library: 'GGSmilesExtension',
         umdNamedDefine: true,
     },
     optimization: {

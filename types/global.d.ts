@@ -1,5 +1,3 @@
-declare global {
-    interface Window {
-        Utils: any;
-    }
+interface Window {
+    Utils: any;
 }
