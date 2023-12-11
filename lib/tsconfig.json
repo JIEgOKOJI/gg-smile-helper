@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "strict": false,
+    "noImplicitAny": false,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "noImplicitReturns": false,
+    "noFallthroughCasesInSwitch": false,
+    "suppressImplicitAnyIndexErrors": true,
+    "ignoreDeprecations": "5.0",
+
+    "target": "es5",
+    "module": "amd",
+    "lib": ["DOM", "ES2019"],
+    "outFile": "main.js",
+    "rootDir": "../",
+    "esModuleInterop": true,
+  },
+  "scripts": {
+    "build": "tsc"
+  },
+  "exclude": [
+    "node_modules",
+    "dist",
+    "/*.spec.ts",
+    "*.spec.ts"
+  ],
+  "include": ["./resources/**/*"]
+}

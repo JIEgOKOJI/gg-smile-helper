@@ -1,0 +1,77 @@
+#smiles .tse-scroll-content[style*="width: 120px"] {
+    width: 100% !important;
+}
+
+.gg-smile-helper_header {
+    width: 100%;
+    background: transparent;
+    box-shadow: none;
+    height: auto;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 16px;
+}
+.gg-smile-helper_header > .search-block {
+    max-width: 100%;
+    width: 100%;
+}
+
+.gg-smile-helper_tabs-container {
+    overflow-x: scroll;
+    white-space: nowrap;
+    scrollbar-color: #233056 #52709c;
+    scrollbar-width: 5px;
+    max-width: 100%;
+    display: flex;
+}
+.gg-smile-helper_tabs-container::-webkit-scrollbar-track {
+    height: 10px;
+    background-color: #52709c;
+}
+.gg-smile-helper_tabs-container::-webkit-scrollbar {
+    height: 10px;
+    width: 5px;
+    background-color: #52709c;
+}
+.gg-smile-helper_tabs-container::-webkit-scrollbar-thumb {
+    height: 8px;
+    background-color: #233056;
+}
+
+.gg-smile-helper_tab {
+    overflow: none;
+    height: 20px;
+    min-width: 24px;
+    padding: 8px 16px;
+    background-color: #233056;
+    cursor: pointer;
+    box-sizing: content-box;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+.gg-smile-helper_tab:hover {
+    background-color: #313c60;
+}
+.gg-smile-helper_tab.active {
+    background-color: #2c3c69;
+}
+.gg-smile-helper_tab.active:hover {
+    background-color: #394773;
+}
+
+.gg-smile-helper_favourite-icon {
+    display: none;
+    color: gold;
+    position: absolute;
+    top: -4px;
+    right: -4px;
+}
+
+.smile-block.favourite .gg-smile-helper_favourite-icon {
+    display: initial;
+}
