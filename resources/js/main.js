@@ -1758,20 +1758,28 @@ class GGSmileHelper extends HTMLElement {
 		const streamerSmiles =
 			window.Utils.rootScope().chat.smiles.ChannelSmiles;
 
-		this.querySelectorAll(".smile-list>div").forEach((e) => {
+		this.querySelectorAll(".smiles-list-block").forEach((e) => {
+        try {
 			const name = e
-				.querySelector(".streamer-name")
-				.textContent.toLowerCase();
+				.querySelector(".streamer-name").textContent;
+				//.textContent.toLowerCase();
+				//console.log(name);
+        }catch(error){
+	     return;
+        }
+
 			if (name === "любимые" || name === "общие") return;
 			const smiles = Array.from(
 				e.querySelectorAll(".smile-block>.smile"),
 			).map((s) => s.title);
-			const categoryKey = streamerSmiles.find(
+			const categoryKey = streamerSmiles.find((s)=> s.name === smiles[0].replace(/:/g, "")).img;
+			//console.log(streamerSmiles.find((s)=> s.name === smiles[0].replace(/:/g, "")).img);
+			/*const categoryKey = streamerSmiles.find(
 				(s) =>
 					s.channel.toLowerCase() === name &&
 					s.name.toLowerCase() ===
 						smiles[0].replace(/:/g, "").toLowerCase(),
-			).img;
+			).img;*/
 			smilesCategories.set(categoryKey, smiles);
 			smilesTags.set(name, smiles);
 			if (
@@ -1780,7 +1788,7 @@ class GGSmileHelper extends HTMLElement {
 				) === null
 			) {
 				const before = this.tabsContainer.querySelector(
-					"[data-category='fav']",
+					"[data-category='metal']",
 				).nextElementSibling;
 				this.tabsContainer.insertBefore(
 					createElement(
@@ -1799,7 +1807,7 @@ class GGSmileHelper extends HTMLElement {
 					before,
 				);
 			}
-		});
+	});
 
 		this.querySelectorAll(".smile-block").forEach((element) => {
 			element.append(
